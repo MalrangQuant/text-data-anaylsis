@@ -93,14 +93,14 @@ def fetch_news_list_for_date(queue, date):
 
     print('Pushing to AWS SQS', end='')
 
-    for idx in range(0, len(buffer), 10):
-
+    if len(buffer) > 0:
+        for idx in range(0, len(buffer), 10):
             print('.', end='', flush=True)
 
             chunk = buffer[idx:idx+10]
             queue.send_messages(Entries=chunk)
 
-            print('Successfully pushed to AWS SQS!')
+        print('Successfully pushed to AWS SQS!')
 
 #    pdb.set_trace()
 
