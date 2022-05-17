@@ -26,7 +26,7 @@ def fetch_news_content(msg):
     soup = bs(r.text, 'html.parser')
 
     node = soup.find("meta", {"name" : "twitter:creator"}) #신문사
-    publisher = node['content']
+    publisher = node['content'] if node is not None else ''
 
     #print('publisher', publisher) 
 
@@ -137,8 +137,8 @@ def parse_datestr (date_span):
 def parse_meta_info (soup):
     
     media_info = soup.find("div", {"class" : "media_end_head_info_datestamp"}) #게시 날짜, 수정 날짜 (있으면) 받아오기 위한 class 찾아주깅
-    datestr_list = media_info.find_all("span", {"class" : "media_end_head_info_datestamp_time"})
-
+    datestr_list = media_info.find_all("span", {"class" : "media_end_head_info_datestamp_time"}) 
+    
     link = media_info.find("a", {'class': 'media_end_head_origin_link'})
     source_url = link['href'] if link is not None else ''
 
@@ -207,12 +207,14 @@ if __name__ == '__main__':
             try:
                 news = fetch_news_content(msg)
                 buffer.append(news)
-            except Exception as e:
-                print('*** Exception occurred! ***')
-                print(e)
-                print(msg.body)
-                print(traceback.format_exc())
+            except:
+                pass
+                # Exception as e:
+                # print('*** Exception occurred! ***')
+                # print(e)
+                # print(msg.body)
+                # print(traceback.format_exc())
 
-                raise e 
+                # raise e 
 
         upload_to_elastic_search(buffer)
