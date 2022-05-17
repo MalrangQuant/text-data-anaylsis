@@ -216,5 +216,3 @@ if __name__ == '__main__':
                 raise e 
 
         upload_to_elastic_search(buffer)
-
-        pdb.set_trace()
