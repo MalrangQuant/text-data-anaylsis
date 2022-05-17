@@ -90,7 +90,7 @@ def fetch_news_list_for_date(queue, date):
 
     temp = {x['Id']: x for x in buffer}
     buffer = list(temp.values())
-
+    
     print('Pushing to AWS SQS', end='')
 
     if len(buffer) > 0:
