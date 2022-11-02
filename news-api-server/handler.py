@@ -3,22 +3,13 @@ import json
 
 def hello(event, context):
     body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
+        "message": "Hello! Successfully access to Lambda",
         "input": event
     }
 
     response = {
-        "statusCode": 200,
+        "statusCode": 200, # status 200은 성공이고, 그 내용이 body
         "body": json.dumps(body)
     }
 
     return response
-
-    # Use this code if you don't use the http event with the LAMBDA-PROXY
-    # integration
-    """
-    return {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "event": event
-    }
-    """

@@ -1,6 +1,13 @@
 service: news-api-server
 frameworkVersion: '3'
 
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
 provider:
   name: aws
   runtime: python3.8
@@ -13,5 +20,13 @@ functions: #functions는 lambda를 만들겠다는 의미
     events: #여기는 api로 들어오는 경로이다 (api gateway를 만들어 주는 것)
       - http:
           path: /hello
+          method: get #Get을 쓰는 것, /hello로 들어올때 get을 실시해라 
+          cors: true
+
+  news_trends:
+    handler: services.news_trends.main #handler.py 안에 있는 hello 라는 함수를 쓰겠다는 의미 (이 3줄이 lambda를 만드는 것)
+    events: #여기는 api로 들어오는 경로이다 (api gateway를 만들어 주는 것)
+      - http:
+          path: /news_trends
           method: get #Get을 쓰는 것, /hello로 들어올때 get을 실시해라 
           cors: true
