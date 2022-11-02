@@ -11,8 +11,8 @@ from gensim_vectorizer import GensimTfidVectorizer
 
 if __name__ == '__main__':
 
-    reader = EsCorpusReader(date_from=dt.datetime(2022,4,1))
-    corpus = list(reader.titles(n=1000))
+    reader = EsCorpusReader(date_from=dt.datetime(2022,4,12,0,0,0), date_to=dt.datetime(2022,4,12,23,59,59))
+    corpus = list(reader.titles(n=5196))
 
 
     model = Pipeline([
@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     vectors = model.fit_transform(corpus)
 
-    num_means = 10
+    num_means = 20
     distance = nltk.cluster.cosine_distance
 
     kmeans = nltk.cluster.KMeansClusterer(

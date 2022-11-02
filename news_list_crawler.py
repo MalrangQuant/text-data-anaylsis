@@ -109,7 +109,7 @@ if __name__ == "__main__":
     sqs = boto3.resource('sqs')
     queue = sqs.get_queue_by_name(QueueName='naver-news-list')
 
-    base_date = dt.datetime(2022, 4, 1)
+    base_date = dt.datetime(2022, 9, 1)
 
     for days in range(30):
         date = base_date + relativedelta(days=days)
